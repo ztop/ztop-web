@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app="ztopApp">
+<head>
+	<meta charset="utf-8">
+	<script src="http://code.angularjs.org/1.2.9/angular.min.js"></script>
+	<script src="http://www.chartjs.org/assets/Chart.js"></script>
+	<script src="http://lgsilver.github.io/angles/libs/angles.js"></script>
+	<script src="js/controllers.js"></script>
+	<script src="js/services.js"></script>
+</head>
+<body ng-controller="ZtopCtrl">
+	<canvas linechart options="options" data="chart[0]" id="lineChart" width="1000" height="600"></canvas>
+	<!-- <table>
+		<tr>
+			<th ng-repeat="column in data.columns">{{column}}</th>
+		</tr>
+		<tr ng-repeat="point in data.points track by $index">
+			<td ng-repeat="value in point track by $index">
+				{{value}}
+			</td>
+		</tr>
+	</table> -->
+</body>
+</html>
