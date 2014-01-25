@@ -12,7 +12,7 @@ func main() {
 		port = os.Args[1]
 	}
 
-	fileHandler := http.FileServer(http.Dir("/Users/tdixon/Code/ztop-web/public"))
+	fileHandler := http.FileServer(http.Dir("./public"))
 	http.Handle("/", fileHandler)
 	log.Println("Listening on port " + port)
 	err := http.ListenAndServe(":"+port, nil)
