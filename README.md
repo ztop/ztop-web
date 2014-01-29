@@ -4,8 +4,15 @@ ztop-web
 
 A web interface for ztop
 
+## Run in development mode
+
 * `npm install`
 * `npm install -g grunt-cli`
-* `grunt` or `grunt watch`
-* `go run server.go`
-* See <http://localhost:8000>
+* `grunt server`
+* See <http://localhost:3000>
+
+## Run in production
+
+* `grunt prod`
+* `[PORT=…] node server.js`
+* See <http://localhost:3000>

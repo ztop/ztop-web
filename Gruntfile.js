@@ -20,6 +20,19 @@ module.exports = function(grunt) {
         dest: 'public/build/app-built.js'
       }
     },
+    ngmin: {
+      scripts: {
+        src: ['public/build/app-built.js'],
+        dest: 'public/build/app-built.js'
+      }
+    },
+    uglify: {
+      scripts: {
+        files: {
+          'public/build/app-built.js': ['public/build/app-built.js']
+        }
+      }
+    },
     less: {
       development: {
         options: {
@@ -31,14 +44,22 @@ module.exports = function(grunt) {
         }
       }
     },
+    express: {
+      dev: {
+        options: {
+          script: 'server.js',
+          port: process.env.PORT || 3000
+        }
+      }
+    },
     watch: {
       scripts: {
         files: ['Gruntfile.js', 'source/**/*.js', 'source/**/*.tpl.html'],
-        tasks: ['html2js', 'concat'],
+        tasks: ['html2js', 'concat']
       },
       less: {
         files: 'source/**/*.less',
-        tasks: ['less'],
+        tasks: ['less']
       }
     }
   });
@@ -47,6 +68,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-html2js');
+  grunt.loadNpmTasks('grunt-ngmin');
+  grunt.loadNpmTasks('grunt-contrib-uglify'); 
+  grunt.loadNpmTasks('grunt-express-server');
 
-  grunt.registerTask('default', ['html2js', 'concat', 'less']); 
+  grunt.registerTask('default', ['html2js', 'concat', 'less']);
+  grunt.registerTask('prod', ['default', 'ngmin', 'uglify']);
+  grunt.registerTask('server', ['default', 'express:dev', 'watch']);
 };

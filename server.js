@@ -7,7 +7,7 @@ var app = connect()
     require('send')(req, __dirname + '/public/index.html').pipe(res);
   });
 
-var port = process.argv[2] || 8000;
+var port = process.env.PORT || 3000;
 
 require('http').createServer(app).listen(port, function() {
   console.log('Listening on port ' + port);
