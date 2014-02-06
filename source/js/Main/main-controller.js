@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('ztop')
-  .controller('MainCtrl', function($scope, $http) {
+  .controller('MainCtrl', function($scope, webSocketConnection) {
     $scope.hi = 'howdy';
-    $http.get('flare.json').then(function(response) {
-      $scope.data = response.data;
+    webSocketConnection.subscribe('flare', function(data) {
+      $scope.data = data;
     });
   });
