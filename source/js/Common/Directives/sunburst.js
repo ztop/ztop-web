@@ -5,39 +5,40 @@ angular.module('ztop')
     return {
       restrict: 'E',
       link: function(scope, elem, attrs) {
+        var width = 960,
+            height = 700,
+            radius = Math.min(width, height) / 2;
+
+        var x = d3.scale.linear()
+            .range([0, 2 * Math.PI]);
+
+        var y = d3.scale.sqrt()
+            .range([0, radius]);
+
+        var color = d3.scale.category20c();
+
+        var svg = d3.select(elem[0]).append("svg")
+            .attr("width", width)
+            .attr("height", height)
+          .append("g")
+            .attr("transform", "translate(" + width / 2 + "," + (height / 2 + 10) + ")");
+
+        var partition = d3.layout.partition()
+            .value(function(d) { return d.size; });
+
+        var arc = d3.svg.arc()
+            .startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
+            .endAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx))); })
+            .innerRadius(function(d) { return Math.max(0, y(d.y)); })
+            .outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); });
 
         scope.$watch('data', function(data) {
           if (!data) return;
 
           console.log(data);
-          var width = 960,
-              height = 700,
-              radius = Math.min(width, height) / 2;
 
-          var x = d3.scale.linear()
-              .range([0, 2 * Math.PI]);
+          svg.selectAll('*').remove();
 
-          var y = d3.scale.sqrt()
-              .range([0, radius]);
-
-          var color = d3.scale.category20c();
-
-          var svg = d3.select(elem[0]).append("svg")
-              .attr("width", width)
-              .attr("height", height)
-            .append("g")
-              .attr("transform", "translate(" + width / 2 + "," + (height / 2 + 10) + ")");
-
-          var partition = d3.layout.partition()
-              .value(function(d) { return d.size; });
-
-          var arc = d3.svg.arc()
-              .startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
-              .endAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx))); })
-              .innerRadius(function(d) { return Math.max(0, y(d.y)); })
-              .outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); });
-
-          
           var path = svg.selectAll("path")
               .data(partition.nodes(scope.data))
             .enter().append("path")
