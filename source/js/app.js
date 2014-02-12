@@ -8,6 +8,10 @@ angular.module('ztop', ['ngRoute', 'templates-main'])
         templateUrl: 'Processes/processes.tpl.html',
         controller: 'ProcessesCtrl'
       })
+      .when('/resources', {
+        templateUrl: 'Resources/resources.tpl.html',
+        controller: 'ResourcesCtrl'
+      })
       .when('/system', {
         templateUrl: 'System/system.tpl.html',
         controller: 'SystemCtrl'
