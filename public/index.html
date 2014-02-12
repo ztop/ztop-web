@@ -9,6 +9,14 @@
   <script src="build/app-built.js"></script>
 </head>
 <body>
+  <header>
+    <nav class="pure-menu pure-menu-open pure-menu-horizontal" ng-controller="NavCtrl">
+      <a href="/" class="pure-menu-heading">ztop</a>
+      <ul>
+        <li ng-class="navClass('system')"><a href="/system">System</a></li>
+      </ul>
+    </nav>
+  </header>
   <div ng-view></div>
 </body>
 </html>
